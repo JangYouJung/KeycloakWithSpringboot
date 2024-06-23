@@ -1,0 +1,34 @@
+spring:
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: ${DB_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        hbm2ddl:
+          auto: update
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8090/realms/aws-springboot/protocol/openid-connect/certs
+      client:
+        provider:
+          keycloak:
+            user-name-attribute: preferred_username
+
+keycloak:
+  enabled: true
+  realm: aws-springboot
+  auth-server-url: http://localhost:8090/auth
+  ssl-required: external
+  resource: spring-security
+  credentials:
+    secret: 1DsNaaJXccDBA9oNo2tdzUi65dCVag9D
+  use-resource-role-mappings: true
+  bearer-only: true

@@ -23,8 +23,12 @@ repositories {
 	mavenCentral()
 }
 
+version = '25.0.1'
+ext{
+	versionKeycloak = project.version
+}
+
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
@@ -33,7 +37,38 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	//runtimeOnly 'mysql:mysql-connector-java'
+	implementation 'org.springframework.boot:spring-boot-starter'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
+	//keycloak
+	implementation "org.keycloak:keycloak-policy-enforcer:${versionKeycloak}"
+	implementation "org.keycloak:keycloak-common:${versionKeycloak}"
+	implementation "org.keycloak:keycloak-core:${versionKeycloak}"
+	implementation "org.keycloak:keycloak-admin-client:${versionKeycloak}"
+	implementation "org.keycloak:keycloak-admin-client-jee:${versionKeycloak}"
+	implementation "org.keycloak:keycloak-test-helper:${versionKeycloak}"
+	implementation "org.keycloak:keycloak-server-spi-private:${versionKeycloak}"
+	implementation "org.keycloak.bom:keycloak-adapter-bom:${versionKeycloak}"
+	implementation "org.keycloak:keycloak-spring-boot-starter:17.0.1"
+
+
+	//Oauth
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+
 }
+
+dependencyManagement {
+	imports {
+		mavenBom "org.keycloak.bom:keycloak-misc-bom:${versionKeycloak}"
+		mavenBom "org.keycloak.bom:keycloak-spi-bom:${versionKeycloak}"
+	}
+}
+
 
 tasks.named('test') {
 	useJUnitPlatform()

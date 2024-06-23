@@ -21,6 +21,16 @@ spring:
         provider:
           keycloak:
             user-name-attribute: preferred_username
+            issuer-uri: http://localhost:8090/realms/aws-springboot
+        registration:
+          keycloak:
+            client-id: spring-security
+            client-secret: 1DsNaaJXccDBA9oNo2tdzUi65dCVag9D
+            scope: openid
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/spring-security
+
+
 
 keycloak:
   enabled: true

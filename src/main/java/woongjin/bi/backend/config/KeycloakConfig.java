@@ -30,7 +30,7 @@ public class KeycloakConfig{
         return ClientRegistration.withRegistrationId("aws-springboot")
                 .clientId("spring-security")
                 .clientSecret("1DsNaaJXccDBA9oNo2tdzUi65dCVag9D")
-                .redirectUri("http://localhost:8080/login/oauth2/code/spring-security")
+                .redirectUri("http://localhost:8080/login/oauth2/code/keycloak")
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .issuerUri("http://localhost:8090/realms/aws-springboot")
                 .authorizationUri("http://localhost:8090/realms/aws-springboot/protocol/openid-connect/auth")

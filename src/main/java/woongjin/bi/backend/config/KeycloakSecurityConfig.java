@@ -50,52 +50,53 @@ public class KeycloakSecurityConfig{
                                 .anyRequest().authenticated()
                 )
                 .oauth2Login(Customizer.withDefaults())
-                .oauth2ResourceServer(oauth2ResourceServer ->
-                        oauth2ResourceServer
-                                .jwt(jwt ->
-                                        jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())
-                                )
-                );
+//                .oauth2ResourceServer(oauth2ResourceServer ->
+//                        oauth2ResourceServer
+//                                .jwt(jwt ->
+//                                        jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())
+//                                )
+//                )
+                ;
 
 
         return http.build();
     }
 
-    private ServletPolicyEnforcerFilter createPolicyEnforcerFilter() {
-        PolicyEnforcerConfig config;
-
-        try {
-            config = JsonSerialization.readValue(getClass().getResourceAsStream("/policy-enforcer.json"), PolicyEnforcerConfig.class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return new ServletPolicyEnforcerFilter(new ConfigurationResolver() {
-            @Override
-            public PolicyEnforcerConfig resolve(HttpRequest request) {
-                return config;
-            }
-        });
-    }
-
-    @Bean
-    JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withJwkSetUri(this.jwkSetUri).build();
-    }
-
-    @Bean
-    public JwtAuthenticationConverter jwtAuthenticationConverter() {
-        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
-        grantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
-
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
-        return jwtAuthenticationConverter;
-    }
-    @Bean
-    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
-        return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
-    }
+//    private ServletPolicyEnforcerFilter createPolicyEnforcerFilter() {
+//        PolicyEnforcerConfig config;
+//
+//        try {
+//            config = JsonSerialization.readValue(getClass().getResourceAsStream("/policy-enforcer.json"), PolicyEnforcerConfig.class);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return new ServletPolicyEnforcerFilter(new ConfigurationResolver() {
+//            @Override
+//            public PolicyEnforcerConfig resolve(HttpRequest request) {
+//                return config;
+//            }
+//        });
+//    }
+//
+//    @Bean
+//    JwtDecoder jwtDecoder() {
+//        return NimbusJwtDecoder.withJwkSetUri(this.jwkSetUri).build();
+//    }
+//
+//    @Bean
+//    public JwtAuthenticationConverter jwtAuthenticationConverter() {
+//        JwtGrantedAuthoritiesConverter grantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+//        grantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+//        grantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
+//
+//        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+//        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(grantedAuthoritiesConverter);
+//        return jwtAuthenticationConverter;
+//    }
+//    @Bean
+//    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+//        return new RegisterSessionAuthenticationStrategy(new SessionRegistryImpl());
+//    }
 
 
 }

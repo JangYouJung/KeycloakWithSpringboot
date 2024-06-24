@@ -14,31 +14,20 @@ spring:
           auto: update
   security:
     oauth2:
-      resourceserver:
+      resource-server:
         jwt:
-          jwk-set-uri: http://localhost:8090/realms/aws-springboot/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8081/realms/aws-springboot
+          jwk-set-uri: http://localhost:8081/realms/aws-springboot/protocol/openid-connect/certs
       client:
         provider:
           keycloak:
+            issuer-uri: http://localhost:8081/realms/aws-springboot
             user-name-attribute: preferred_username
-            issuer-uri: http://localhost:8090/realms/aws-springboot
         registration:
           keycloak:
-            client-id: spring-security
-            client-secret: 1DsNaaJXccDBA9oNo2tdzUi65dCVag9D
-            scope: openid
+            client-id: springboot-main
+            client-secret: bfwUzJblIT6OyMbKRUs5Ewx6kPZnjn0B
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/spring-security
+            scope: openid, profile, email
+            redirect-uri: http://localhost:8080/login/oauth2/code/springboot-main
 
-
-
-keycloak:
-  enabled: true
-  realm: aws-springboot
-  auth-server-url: http://localhost:8090/auth
-  ssl-required: external
-  resource: spring-security
-  credentials:
-    secret: 1DsNaaJXccDBA9oNo2tdzUi65dCVag9D
-  use-resource-role-mappings: true
-  bearer-only: true

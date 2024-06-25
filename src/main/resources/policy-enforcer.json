@@ -1,0 +1,8 @@
+{
+  "realm": "aws-springboot",
+  "auth-server-url": "http://localhost:8090",
+  "resource": "spring-security",
+  "credentials": {
+    "secret": "1DsNaaJXccDBA9oNo2tdzUi65dCVag9D"
+  }
+}

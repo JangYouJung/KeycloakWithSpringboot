@@ -1,0 +1,33 @@
+spring:
+  datasource:
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: ${DB_URL}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+        hbm2ddl:
+          auto: update
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          issuer-uri: http://localhost:8081/realms/aws-springboot
+          jwk-set-uri: http://localhost:8081/realms/aws-springboot/protocol/openid-connect/certs
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8081/realms/aws-springboot
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: springboot-main
+            client-secret: bfwUzJblIT6OyMbKRUs5Ewx6kPZnjn0B
+            authorization-grant-type: authorization_code
+            scope: openid, profile, email
+            redirect-uri: http://localhost:8080/login/oauth2/code/springboot-main
+

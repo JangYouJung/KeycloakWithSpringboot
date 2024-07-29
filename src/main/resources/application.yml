@@ -26,7 +26,7 @@ spring:
         registration:
           keycloak:
             client-id: springboot-main
-            client-secret: bfwUzJblIT6OyMbKRUs5Ewx6kPZnjn0B
+            client-secret: ${CLIENT_SECRET}
             authorization-grant-type: authorization_code
             scope: openid, profile, email
             redirect-uri: http://localhost:8080/login/oauth2/code/springboot-main
